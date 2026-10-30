@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Slow Bloom",
+  "engine": {
+    "mode": "global",
+    "coupling": 2.7,
+    "noise": 0.18,
+    "drift": 0.25,
+    "projection": 0,
+    "pulseEnabled": true,
+    "pulseMode": "regional",
+    "pulseRate": 0.25,
+    "pulseJitter": 0.5,
+    "pulseStrength": 0.72,
+    "attack": 2,
+    "decay": 4,
+    "sustain": 0.72,
+    "release": 5
+  },
+  "audio": {
+    "tuningMode": "locked",
+    "root": 65.406,
+    "scale": "major",
+    "detune": 8,
+    "tone": 0.3,
+    "space": 0.65,
+    "output": 0.56,
+    "droneEnabled": false,
+    "voiceLimit": 8,
+    "binaural": false,
+    "difference": 8,
+    "spread": 0.4,
+    "variation": 0.4,
+    "octaves": 1,
+    "reverb": 0.55,
+    "reverbSize": 0.98,
+    "orbitEnabled": true,
+    "orbitRate": 0.01,
+    "orbitDepth": 0.7
+  },
+  "format": "cortex65-preset"
+}

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Glass Canopy",
+  "engine": {
+    "mode": "islands",
+    "coupling": 1.3,
+    "noise": 0.42,
+    "drift": 0.45,
+    "projection": -1,
+    "pulseEnabled": true,
+    "pulseMode": "rain",
+    "pulseRate": 0.55,
+    "pulseJitter": 0.92,
+    "pulseStrength": 0.65,
+    "attack": 0.4,
+    "decay": 3.3,
+    "sustain": 0.22,
+    "release": 4.9
+  },
+  "audio": {
+    "tuningMode": "locked",
+    "root": 65.406,
+    "scale": "major",
+    "detune": 2,
+    "tone": 0.62,
+    "space": 0.6,
+    "output": 0.5,
+    "droneEnabled": false,
+    "voiceLimit": 8,
+    "binaural": false,
+    "difference": 8,
+    "spread": 0.55,
+    "variation": 0.9,
+    "octaves": 3,
+    "reverb": 0.62,
+    "reverbSize": 0.96,
+    "orbitEnabled": true,
+    "orbitRate": 0.026,
+    "orbitDepth": 0.78
+  },
+  "format": "cortex65-preset"
+}

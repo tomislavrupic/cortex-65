@@ -1,5 +1,7 @@
 # CORTEX / 65
 
+![CORTEX / 65 — Order from noise.](dist/assets/marketing/cortex-65-banner-v1.png)
+
 A playable generative instrument: 65,536 coupled phase states, an anatomical point-cloud display, sixteen musical regions and a bounded 4/8/16-voice audio bank. Apple Silicon AU and standalone app, with a browser companion.
 
 **[Play in the browser](https://tomislavrupic.github.io/cortex-65/)** · **[Download Mac AU + app](https://github.com/tomislavrupic/cortex-65/releases/tag/v0.3.0)**
@@ -43,3 +45,7 @@ BodyParts3D, © The Database Center for Life Science licensed under CC Attributi
 ## License
 
 Product source: GNU AGPLv3, see LICENSE. JUCE uses its AGPLv3 option, pinned to `2cdfca8feb300fb424002ba2c2751569e5bacb64`. See THIRD_PARTY_NOTICES.md and the asset attributions. Release archives include corresponding source and checksums.
+
+## Factory bank
+
+Choose a patch under Factory Presets and press Load. Orbital Rain adds slow headphone motion to scattered droplets; Cortical Thunder creates broad Brainstorm bursts. Deep Current is a low evolving fifths bed, Glass Canopy is sparse major-key rain, and Slow Bloom is a warm spreading ambient pattern. The original D Major Drift remains available. New patches enable their pulse patterns but preserve play/pause and mute; press Start Field if paused. All factory patches use the eight-voice budget. Headphones reveal the orbital motion. Loading replaces musical settings, so save a personal patch first if you want to keep it.

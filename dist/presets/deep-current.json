@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Deep Current",
+  "engine": {
+    "mode": "modular",
+    "coupling": 3.9,
+    "noise": 0.09,
+    "drift": 0.2,
+    "projection": 1,
+    "pulseEnabled": true,
+    "pulseMode": "regional",
+    "pulseRate": 0.28,
+    "pulseJitter": 0.75,
+    "pulseStrength": 0.56,
+    "attack": 1.8,
+    "decay": 4,
+    "sustain": 0.64,
+    "release": 5
+  },
+  "audio": {
+    "tuningMode": "locked",
+    "root": 55,
+    "scale": "fifths",
+    "detune": 3,
+    "tone": 0.22,
+    "space": 0.5,
+    "output": 0.52,
+    "droneEnabled": true,
+    "voiceLimit": 8,
+    "binaural": false,
+    "difference": 8,
+    "spread": 0.35,
+    "variation": 0.25,
+    "octaves": 1,
+    "reverb": 0.52,
+    "reverbSize": 0.98,
+    "orbitEnabled": true,
+    "orbitRate": 0.012,
+    "orbitDepth": 0.6
+  },
+  "format": "cortex65-preset"
+}

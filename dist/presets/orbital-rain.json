@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Orbital Rain",
+  "engine": {
+    "mode": "islands",
+    "coupling": 0.7,
+    "noise": 0.32,
+    "drift": 0.55,
+    "projection": 1,
+    "pulseEnabled": true,
+    "pulseMode": "rain",
+    "pulseRate": 1.15,
+    "pulseJitter": 0.85,
+    "pulseStrength": 0.72,
+    "attack": 0.65,
+    "decay": 1.9,
+    "sustain": 0.38,
+    "release": 3.8
+  },
+  "audio": {
+    "tuningMode": "locked",
+    "root": 65.406,
+    "scale": "minor",
+    "detune": 6,
+    "tone": 0.38,
+    "space": 0.25,
+    "output": 0.52,
+    "droneEnabled": false,
+    "voiceLimit": 8,
+    "binaural": false,
+    "difference": 8,
+    "spread": 0.18,
+    "variation": 0.72,
+    "octaves": 2,
+    "reverb": 0.48,
+    "reverbSize": 0.88,
+    "orbitEnabled": true,
+    "orbitRate": 0.018,
+    "orbitDepth": 0.85
+  },
+  "format": "cortex65-preset"
+}

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "name": "Cortical Thunder",
+  "engine": {
+    "mode": "global",
+    "coupling": 5.2,
+    "noise": 0.14,
+    "drift": 0.35,
+    "projection": 0,
+    "pulseEnabled": true,
+    "pulseMode": "brainstorm",
+    "pulseRate": 0.25,
+    "pulseJitter": 0.7,
+    "pulseStrength": 0.9,
+    "attack": 1.4,
+    "decay": 2.2,
+    "sustain": 0.45,
+    "release": 4.8
+  },
+  "audio": {
+    "tuningMode": "locked",
+    "root": 73.416,
+    "scale": "minor",
+    "detune": 12,
+    "tone": 0.65,
+    "space": 0.9,
+    "output": 0.46,
+    "droneEnabled": false,
+    "voiceLimit": 8,
+    "binaural": false,
+    "difference": 8,
+    "spread": 0.9,
+    "variation": 0.42,
+    "octaves": 2,
+    "reverb": 0.58,
+    "reverbSize": 0.94,
+    "orbitEnabled": false,
+    "orbitRate": 0.07,
+    "orbitDepth": 0.7
+  },
+  "format": "cortex65-preset"
+}
