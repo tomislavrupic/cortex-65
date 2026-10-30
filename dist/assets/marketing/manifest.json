@@ -1,11 +1,36 @@
 {
-  "asset": "cortex-65-banner-v1.png",
   "created": "2026-10-30",
-  "width": 1774,
-  "height": 887,
-  "generator": "OpenAI image generation",
-  "reference": "CORTEX / 65 instrument screenshot",
-  "purpose": "Website banner and social preview artwork",
-  "sourceGeometryCredit": "BodyParts3D, \u00a9 The Database Center for Life Science, CC BY4.0",
-  "sha256": "630347e9c1f3a9fe7a7e698b04c35c26605c98efbbcdad95cb4913c5c38f2234"
+  "activeSocialAsset": "cortex-65-social-v2.png",
+  "activePosterAsset": "cortex-65-poster-v1.png",
+  "originalBannerManifest": {
+    "asset": "cortex-65-banner-v1.png",
+    "created": "2026-10-30",
+    "width": 1774,
+    "height": 887,
+    "generator": "OpenAI image generation",
+    "reference": "CORTEX / 65 instrument screenshot",
+    "purpose": "Website banner and social preview artwork",
+    "sourceGeometryCredit": "BodyParts3D, \u00a9 The Database Center for Life Science, CC BY4.0",
+    "sha256": "630347e9c1f3a9fe7a7e698b04c35c26605c98efbbcdad95cb4913c5c38f2234"
+  },
+  "assets": [
+    {
+      "asset": "cortex-65-poster-v1.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3215553,
+      "sha256": "5425e11b0c8aa0c85c33255d1c6954573a99c56125701a7df3f8e86f773ff2e1",
+      "source": "User supplied approved poster",
+      "purpose": "Website poster"
+    },
+    {
+      "asset": "cortex-65-social-v2.png",
+      "width": 1774,
+      "height": 887,
+      "bytes": 3056077,
+      "sha256": "970a33c96c6c80e5d1a783fac07599a5c5093feea607d28f48992e6dd231dbd2",
+      "source": "OpenAI built-in image generation, landscape recomposition of approved poster",
+      "purpose": "X and Open Graph large image preview"
+    }
+  ]
 }

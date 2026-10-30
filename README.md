@@ -1,6 +1,6 @@
 # CORTEX / 65
 
-![CORTEX / 65 — Order from noise.](dist/assets/marketing/cortex-65-banner-v1.png)
+![CORTEX / 65 — Order from noise.](dist/assets/marketing/cortex-65-social-v2.png)
 
 A playable generative instrument: 65,536 coupled phase states, an anatomical point-cloud display, sixteen musical regions and a bounded 4/8/16-voice audio bank. Apple Silicon AU and standalone app, with a browser companion.
 
@@ -53,3 +53,7 @@ Choose a patch under Factory Presets and press Load. Orbital Rain adds slow head
 The website starts at A2 /110Hz. The five new factory patches use roots one octave above their initial bank and zero detune. Binaural beats tune the left/base voice, then apply the selected Hz offset to the right ear; Scale Lock does not quantize that offset. Use Head Orbit for spatial movement of tuned voices. The original D Major Drift snapshot retains its saved register.
 
 Clicking the cortex starts/resumes browser audio and excites the picked point; dragging rotates without starting playback. Download beside the instrument name opens the Mac download page in a separate tab.
+
+## Artwork
+
+The website uses the approved portrait poster and a matching landscape version for X/Open Graph previews. Both are downloadable from the [website](https://tomislavrupic.github.io/cortex-65/downloads.html#artwork). The portrait is the user-supplied original; the landscape was recomposed with OpenAI built-in image generation. The final prompt and asset hashes are in `dist/assets/marketing/`. Original banner artwork is retained.
