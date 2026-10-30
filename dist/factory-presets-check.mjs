@@ -13,6 +13,8 @@ for(const entry of FACTORY_PRESETS){
  assert.ok(preset.audio.voiceLimit<=8);assert.equal(preset.audio.tuningMode,'locked');
  loaded.push(preset);
 }
+assert.ok(loaded.slice(0,5).every(p=>p.audio.detune===0),'new factory patches start exactly tuned');
+assert.deepEqual(loaded.slice(0,5).map(p=>p.audio.root),[130.812,146.832,110,130.812,130.812],'new factory register is one octave higher');
 const rain=loaded.find(p=>p.name==='Orbital Rain');assert.equal(rain.engine.pulseMode,'rain');assert.equal(rain.audio.orbitEnabled,true);assert.ok(rain.audio.orbitRate<=.025);
 const storm=loaded.find(p=>p.name==='Cortical Thunder');assert.equal(storm.engine.pulseMode,'brainstorm');assert.ok(storm.engine.pulseStrength>=.85);
 for(const name of ['Deep Current','Glass Canopy','Slow Bloom']){const p=loaded.find(p=>p.name===name);assert.ok(p.engine.release>=3.5&&p.audio.reverb>=.4);}
@@ -20,6 +22,7 @@ let calls=0;await assert.rejects(readFactoryPreset('../private',async()=>{calls+
 await assert.rejects(readFactoryPreset('orbital-rain',async()=>({ok:false})),/could not be loaded/);
 const invalid=structuredClone(rain);invalid.audio.orbitRate=100;await assert.rejects(readFactoryPreset('orbital-rain',async()=>({ok:true,text:async()=>JSON.stringify(invalid)})),/range/);
 const html=await readFile(new URL('./index.html',import.meta.url),'utf8');assert.ok(html.includes('id="factory-preset"'));assert.ok(html.includes('id="factory-load"'));
+assert.ok(html.includes('<option value="110">A2 · 110 Hz</option>'),'startup root is A2');
 const recall=createPresetRecallGate(),applied=[];let resolveFactory;
 const slow=recall(()=>new Promise(resolve=>resolveFactory=resolve),p=>applied.push(p));
 await recall(async()=> 'new personal patch',p=>applied.push(p));resolveFactory('old factory patch');assert.equal(await slow,false);assert.deepEqual(applied,['new personal patch']);

@@ -19,9 +19,9 @@
   },
   "audio": {
     "tuningMode": "locked",
-    "root": 65.406,
+    "root": 130.812,
     "scale": "major",
-    "detune": 8,
+    "detune": 0,
     "tone": 0.3,
     "space": 0.65,
     "output": 0.56,

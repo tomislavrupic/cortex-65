@@ -12,3 +12,5 @@ Select a patch in the rack and press **Load**. Loading keeps the current play/pa
 | D Major Drift | Original screenshot patch | Pulses off; click a region or press E |
 
 Presets use the same validated JSON format as your own saved files. They do not reset the evolving phase state or start audio automatically. Head Orbit supplies analytic headphone cues; it is separate from binaural beat pairs.
+
+Startup root is A2 /110Hz. The five new patches have roots one octave higher and Detune0 for exact scale fundamentals. D Major Drift retains the original screenshot register. Binaural beat pairs deliberately offset the right ear after scale tuning; they can sound detuned, especially at low notes. Head Orbit is the spatial-motion choice for tuned voices.

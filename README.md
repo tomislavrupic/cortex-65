@@ -49,3 +49,5 @@ Product source: GNU AGPLv3, see LICENSE. JUCE uses its AGPLv3 option, pinned to 
 ## Factory bank
 
 Choose a patch under Factory Presets and press Load. Orbital Rain adds slow headphone motion to scattered droplets; Cortical Thunder creates broad Brainstorm bursts. Deep Current is a low evolving fifths bed, Glass Canopy is sparse major-key rain, and Slow Bloom is a warm spreading ambient pattern. The original D Major Drift remains available. New patches enable their pulse patterns but preserve play/pause and mute; press Start Field if paused. All factory patches use the eight-voice budget. Headphones reveal the orbital motion. Loading replaces musical settings, so save a personal patch first if you want to keep it.
+
+The website starts at A2 /110Hz. The five new factory patches use roots one octave above their initial bank and zero detune. Binaural beats tune the left/base voice, then apply the selected Hz offset to the right ear; Scale Lock does not quantize that offset. Use Head Orbit for spatial movement of tuned voices. The original D Major Drift snapshot retains its saved register.
