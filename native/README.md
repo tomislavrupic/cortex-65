@@ -28,7 +28,7 @@ From the repository root, initialize the pinned JUCE submodule for a Git checkou
 
 ```sh
 git submodule update --init --recursive
-cmake -S native -B native/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=arm64
+cmake -S native -B native/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 -DCMAKE_OSX_ARCHITECTURES=arm64
 cmake --build native/build --config Release -j 2
 ctest --test-dir native/build --output-on-failure
 ```
@@ -38,7 +38,7 @@ JUCE defaults to `third_party/JUCE`; an existing installation can be selected wi
 - `native/build/Cortex65_artefacts/Release/AU/CORTEX 65.component`
 - `native/build/Cortex65_artefacts/Release/Standalone/CORTEX 65.app`
 
-Bundle ID is `com.pixelrecords.cortex65`; AU identity is `aumu / Cx65 / Pxrc`. Builds sign ad hoc and never automatically install. Ad-hoc signing is not notarization. See the repository license and third-party notices before redistribution.
+Bundle ID is `com.pixelrecords.cortex65`; AU identity is `aumu / Cx65 / Pxrc`. Local builds sign ad hoc and never automatically install. The recommended public 0.3.0 distribution is separately Developer ID signed, Apple notarized and stapled; see `../dist/releases/0.3.0-notarized.json`. Ad-hoc local signing is not notarization. See the repository license and third-party notices before redistribution.
 
 ## Verification and limits
 
@@ -47,3 +47,5 @@ Eight test targets cover phase dynamics, finite propagation, voice limits, tunin
 The simulation and pulse clock run on a wall-clock worker. Use real-time recording/bounce: accelerated offline bounce is not supported accurately. There is no host-tempo synchronization. Controls persist; exact stochastic performances do not. The host tail hint is 62 seconds, while repeated pulses or Continuous Bed can continue indefinitely. Physical headphone listening, individual spatial perception and user DAW acceptance are separate from automated checks.
 
 Anatomy comes from the licensed BodyParts3D source-derived samples; provenance and adaptation records are in `Assets/ATTRIBUTION.md` and `Assets/provenance.json`, and copied into built bundles. This is a musical oscillator instrument, not a biological simulation or clinical reconstruction. Historical local evidence files are development artifacts and are not required for public source builds.
+
+Release packaging checks the actual Mach-O deployment target with `vtool -show-build`; the CMake cache alone is not evidence of the shipped minimum OS. Use a clean build directory or explicitly pass the deployment target when reusing a cache.

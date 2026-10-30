@@ -1,0 +1,23 @@
+{
+  "product": "CORTEX / 65",
+  "version": "0.3.0",
+  "date": "2026-10-30",
+  "status": "Accepted",
+  "submissionId": "00588e5e-a743-4389-a250-74d97a3a7222",
+  "signingAuthority": "Developer ID Application: Tomislav Rupic (P6GH8ZH6R2)",
+  "teamIdentifier": "P6GH8ZH6R2",
+  "hardenedRuntime": true,
+  "stapledTicketsValidated": true,
+  "gatekeeperAppAssessment": "accepted, Notarized Developer ID",
+  "signedAUHostTest": "PASS: AU factory, instantiate and stereo MIDI render",
+  "architecture": "arm64",
+  "minimumMacOS": "12.0",
+  "verifiedMachOMinimumOS": "12.0",
+  "buildDeploymentTarget": "12.0",
+  "buildSource": "Original verified v0.3.0 source archive with explicit -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0",
+  "sourceURL": "https://github.com/tomislavrupic/cortex-65/releases/download/v0.3.0/CORTEX-65-0.3.0-source.zip",
+  "sourceSHA256": "e072192a50fa73e1fda2aa8887aca110fcc05120d0299897c0c243ae4af99a28",
+  "archive": "CORTEX-65-0.3.0-notarized-macOS12-arm64.zip",
+  "archiveBytes": 9881213,
+  "archiveSHA256": "ddccbd2c78c6d7d51042044780007143d295b4d8c0ec2707a0e27f9896972322"
+}

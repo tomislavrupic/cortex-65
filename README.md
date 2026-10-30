@@ -22,7 +22,7 @@ No accounts, telemetry or external runtime assets. Computation and sound run on 
 
 Requires Apple Silicon and macOS12+. Unpack the Mac ZIP. The standalone app is in `Native`; `Install-AU.command` installs the Audio Unit into your user Components folder, backing up any existing Cortex component. Rescan Audio Units in the DAW. MIDI notes seed regional excitation.
 
-The build is ad-hoc signed, not Apple notarized. macOS may require normal Privacy & Security review for downloaded software. No Intel or VST3 binary is included.
+The recommended 0.3.0 Mac archive is Developer ID signed and Apple notarized, with validated stapled tickets for the app and AU. The original ad-hoc archive remains available as a historical asset. No Intel or VST3 binary is included. See `dist/releases/0.3.0-notarized.json` for the submission ID and final archive checksum.
 
 ## Build and verify
 
