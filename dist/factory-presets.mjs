@@ -9,7 +9,7 @@ export const FACTORY_PRESETS=Object.freeze([
 ].map(Object.freeze));
 export async function readFactoryPreset(id,fetchFile=fetch){
  const entry=FACTORY_PRESETS.find(p=>p.id===id);if(!entry)throw new Error('Unknown factory preset.');
- const response=await fetchFile('./presets/'+entry.id+'.json');if(!response.ok)throw new Error('Factory preset could not be loaded. Try again.');
+ const response=await fetchFile('./presets/'+entry.id+'.json',{cache:'no-cache'});if(!response.ok)throw new Error('Factory preset could not be loaded. Try again.');
  const preset=parseUserPreset(await response.text());if(preset.name!==entry.name)throw new Error('Factory preset name does not match the bank.');return preset;
 }
 // A later personal-file recall wins over an earlier, slower network recall.
