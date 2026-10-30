@@ -1,3 +1,4 @@
+import {createCortexTrigger} from './cortex-trigger.mjs';
 import {FACTORY_PRESETS,readFactoryPreset,createPresetRecallGate} from './factory-presets.mjs';
 import {AudioSession} from './audio-session.mjs';
 import {frequencyForRegion} from './tuning.mjs';
@@ -73,6 +74,8 @@ factoryLoad.onclick=()=>recallFactory(factorySelect.value);
 $('preset-d-major').onclick=()=>recallFactory('d-major-drift');
 
 let lastExcited=0;function excite(group,nodeIndex=null){lastExcited=group;worker.postMessage({type:'excite',group,nodeIndex});toast('Region '+String(group+1).padStart(2,'0')+' excited');} $('excite').onclick=()=>excite(Math.floor(Math.random()*16));
+const triggerCortex=createCortexTrigger({needsStart:()=>!running||ctx?.state!=='running',start:play,canExcite:()=>running&&ctx?.state==='running',excite:hit=>{diagnostics.lastPick=hit;excite(hit.group,hit.index);}});
+
 window.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement.tagName)||e.repeat)return;if(e.code==='Space'){e.preventDefault();play();}if(e.key.toLowerCase()==='m')$('mute').click();if(e.key.toLowerCase()==='e')$('excite').click();});
 $('record').onclick=async()=>{if(recorder?.state==='recording'){recorder.stop();return;}try{if(!running)await play();if(!ctx||!running)return;if(!window.MediaRecorder)throw new Error('Recording is unavailable in this browser');recordChunks=[];const mime=['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(m=>MediaRecorder.isTypeSupported(m));recorder=new MediaRecorder(recordDestination.stream,mime?{mimeType:mime}:{});recorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data);};recorder.onstop=()=>{const blob=new Blob(recordChunks,{type:recorder.mimeType}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='CORTEX-65-'+new Date().toISOString().replaceAll(':','-')+(recorder.mimeType.includes('mp4')?'.m4a':'.webm');a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);$('record').classList.remove('recording');$('record').textContent='● REC';toast('Stereo recording saved');};recorder.start();recordStarted=performance.now();$('record').classList.add('recording');$('record').textContent='■ STOP REC';}catch(e){toast(e.message);}};
 setInterval(()=>{let t=recorder?.state==='recording'?(performance.now()-recordStarted)/1000:diagnostics.workerStats?.time||0;$('elapsed').textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(Math.floor(t%60)).padStart(2,'0');},250);
@@ -111,7 +114,7 @@ async function startRenderer(){
  }
  diagnostics.pickRegion=pickRegion;diagnostics.projectNode=index=>{if(index<0||index>=N)return null;const rect=canvas.getBoundingClientRect(),as=rect.width/rect.height,p=projectedPoint(index,as,scaleForAspect(as));return{clientX:rect.left+(p.x+1)*rect.width/2,clientY:rect.top+(1-p.y)*rect.height/2,depth:p.z,group:index>>12};};
  canvas.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,yaw,pitch};moved=false;canvas.setPointerCapture(e.pointerId);};canvas.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>5)moved=true;yaw=drag.yaw+dx*.006;pitch=Math.max(-1.15,Math.min(1.15,drag.pitch+dy*.006));requestRender();};
- canvas.onpointerup=e=>{if(!moved){const hit=pickRegion(e.clientX,e.clientY);if(hit){diagnostics.lastPick=hit;excite(hit.group,hit.index);}}drag=null;};canvas.onpointercancel=()=>{drag=null;};canvas.ondblclick=()=>{yaw=-.075;pitch=.20;requestRender();};
+ canvas.onpointerup=e=>{const clicked=drag&&!moved;drag=null;if(clicked){const hit=pickRegion(e.clientX,e.clientY);if(hit)triggerCortex(hit).catch(error=>{diagnostics.audioError=error.message;toast('Audio could not start: '+error.message);});}};canvas.onpointercancel=()=>{drag=null;};canvas.ondblclick=()=>{yaw=-.075;pitch=.20;requestRender();};
  const leftLabel=document.querySelector('.side-coordinate.left'),rightLabel=document.querySelector('.side-coordinate.right');let labelOrder='';
  let frames=0,lastFps=performance.now(),framePending=false;
  requestRender=()=>{if(framePending||document.hidden)return;framePending=true;requestAnimationFrame(render);};

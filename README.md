@@ -6,7 +6,7 @@ A playable generative instrument: 65,536 coupled phase states, an anatomical poi
 
 **[Play in the browser](https://tomislavrupic.github.io/cortex-65/)** · **[Download Mac AU + app](https://github.com/tomislavrupic/cortex-65/releases/tag/v0.3.0)**
 
-Start Field, then tap a region or press E. Regional pulses recruit linked regions; Brainstorm lights up broad bursts, while Brain Rain scatters softer isolated drops. ADSR shapes spatial spread and decay. Scale Lock, note variation and octave range create tuned evolving patterns; Free permits continuous pitches. Reverb adds long tails.
+Click the cortex to start the field and excite that spot, or use Start Field and press E. Regional pulses recruit linked regions; Brainstorm lights up broad bursts, while Brain Rain scatters softer isolated drops. ADSR shapes spatial spread and decay. Scale Lock, note variation and octave range create tuned evolving patterns; Free permits continuous pitches. Reverb adds long tails.
 
 Head Orbit gives each sounding voice a moving headphone position with analytic ear-timing and head-shadow cues. Rate and Depth control the movement. Binaural beat mode instead sends matched sine pairs to separate ears with a 2–50 Hz difference. The two modes are separately selected. Use stereo headphones.
 
@@ -51,3 +51,5 @@ Product source: GNU AGPLv3, see LICENSE. JUCE uses its AGPLv3 option, pinned to 
 Choose a patch under Factory Presets and press Load. Orbital Rain adds slow headphone motion to scattered droplets; Cortical Thunder creates broad Brainstorm bursts. Deep Current is a low evolving fifths bed, Glass Canopy is sparse major-key rain, and Slow Bloom is a warm spreading ambient pattern. The original D Major Drift remains available. New patches enable their pulse patterns but preserve play/pause and mute; press Start Field if paused. All factory patches use the eight-voice budget. Headphones reveal the orbital motion. Loading replaces musical settings, so save a personal patch first if you want to keep it.
 
 The website starts at A2 /110Hz. The five new factory patches use roots one octave above their initial bank and zero detune. Binaural beats tune the left/base voice, then apply the selected Hz offset to the right ear; Scale Lock does not quantize that offset. Use Head Orbit for spatial movement of tuned voices. The original D Major Drift snapshot retains its saved register.
+
+Clicking the cortex starts/resumes browser audio and excites the picked point; dragging rotates without starting playback. Download beside the instrument name opens the Mac download page in a separate tab.

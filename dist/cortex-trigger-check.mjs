@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createCortexTrigger} from './cortex-trigger.mjs';
+let running=false,ready=false,resolveStart;const order=[],hits=[];
+const trigger=createCortexTrigger({needsStart:()=>!running||!ready,start(){order.push('gesture-resume');return new Promise(resolve=>{resolveStart=()=>{running=true;ready=true;order.push('run');resolve();};});},canExcite:()=>running&&ready,excite:hit=>{order.push('excite');hits.push(hit);}});
+const hit={group:7,index:28673},first=trigger(hit);assert.deepEqual(order,['gesture-resume'],'resume called synchronously inside gesture');
+assert.equal(await trigger({group:1,index:4098}),false,'cold-start taps do not queue extra notes');assert.equal(hits.length,0);resolveStart();assert.equal(await first,true);assert.deepEqual(order,['gesture-resume','run','excite']);assert.equal(hits[0],hit);
+await trigger(hit);assert.equal(hits.length,2);assert.equal(order.filter(x=>x==='gesture-resume').length,1,'playing click never toggles transport');
+ready=false;const interrupted=trigger(hit);resolveStart();await interrupted;assert.equal(hits.length,3);
+assert.equal(await trigger(null),false,'empty canvas never starts or excites');
+let fail=true,excited=0;const retry=createCortexTrigger({needsStart:()=>true,start(){if(fail)throw new Error('blocked');},canExcite:()=>!fail,excite(){excited++;}});await assert.rejects(retry(hit),/blocked/);assert.equal(excited,0);fail=false;assert.equal(await retry(hit),true);
+const html=await readFile(new URL('./index.html',import.meta.url),'utf8');assert.match(html,/<div class="identity-title"><h1>.*?<\/h1><a[^>]+class="header-download"[^>]+href="downloads.html"/);
+console.log(JSON.stringify({ok:true,firstClickStartsBeforeExcitation:true,samePickedNode:true,gestureSafe:true,boundedRapidTaps:true,runningClickDoesNotPause:true,interruptionRetry:true,downloadBesideName:true}));
