@@ -1,0 +1,48 @@
+{
+  "name": "D Major Drift",
+  "version": 1,
+  "capturedFrom": "Screenshot 2026-10-30 at 10.59.46.png and matching live settings",
+  "engine": {
+    "mode": "islands",
+    "coupling": 0,
+    "noise": 0,
+    "drift": 2,
+    "projection": 0,
+    "pulseEnabled": false,
+    "pulseMode": "regional",
+    "pulseRate": 0.40669799579554944,
+    "pulseJitter": 0.2668,
+    "pulseStrength": 1,
+    "attack": 1.194638187418546,
+    "decay": 0.24546802930429973,
+    "sustain": 0.3271,
+    "release": 1.7375449665295006
+  },
+  "audio": {
+    "tuningMode": "locked",
+    "root": 73.416,
+    "scale": "major",
+    "detune": 4.96,
+    "tone": 0.9706,
+    "space": 0.849,
+    "output": 0.49491225,
+    "droneEnabled": false,
+    "voiceLimit": 8,
+    "binaural": false,
+    "difference": 8,
+    "spread": 0,
+    "variation": 0,
+    "octaves": 0,
+    "reverb": 0,
+    "reverbSize": 0.75
+  },
+  "nativeMapping": {
+    "rootMidi": 38,
+    "network": 0,
+    "projection": 0,
+    "tuning": 0,
+    "scale": 1,
+    "pulsemode": 0
+  },
+  "note": "Parameter recall preserves transport and current phase state. Later controls use neutral values to retain screenshot tuning; audio voice budget8. Exact phase trajectory and view pose are not reconstructed."
+}

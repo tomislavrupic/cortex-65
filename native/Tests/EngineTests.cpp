@@ -1,0 +1,35 @@
+#include "PhaseEngine.h"
+#include "PulseClock.h"
+#include "PulsePattern.h"
+#include "Excitation.h"
+#include "Tuning.h"
+#include "Envelope.h"
+#include <vector>
+#include <chrono>
+#include <memory>
+#include <iostream>
+#include <stdexcept>
+void require(bool ok,const char* message){if(!ok)throw std::runtime_error(message);}
+int main(){
+ cortex::PulsePattern pattern,twin; cortex::Excitation storm,stormTwin;pattern.trigger(1,3,.8f,.38f,storm);twin.trigger(1,3,.8f,.38f,stormTwin);unsigned mask=0;int count=0;float latest=0;
+ for(int tick=0;tick<400;++tick){auto hits=storm.step(.005f,2,0,.38f),same=stormTwin.step(.005f,2,0,.38f);require(hits==same&&storm.firedNode==stormTwin.firedNode,"seeded storm positions and strengths");for(int g=0;g<16;++g)if(hits[g]>0){require(!(mask&(1u<<g)),"unique storm groups");mask|=1u<<g;++count;latest=tick*.005f;require(hits[g]>=.6f&&hits[g]<=.8f,"storm strength range");require(storm.firedNode[g]>=g*4096&&storm.firedNode[g]<(g+1)*4096,"storm point bounds");}}
+ require(count>=14&&count<=16&&(mask&255)&&(mask&65280)&&latest<=.65f*.38f+.005f,"storm broad finite stagger at coupling zero");
+ float minRain=1,maxRain=0;for(int drop=0;drop<20;++drop){cortex::Excitation rain;int region=drop%16;pattern.trigger(2,region,.8f,.38f,rain);int hits=0;for(int tick=0;tick<400;++tick){auto values=rain.step(.025f,1,8);for(int g=0;g<16;++g)if(values[g]>0){++hits;require(g==region&&values[g]>=.2f&&values[g]<=.56f,"rain isolated weighted seed");minRain=std::min(minRain,values[g]);maxRain=std::max(maxRain,values[g]);}}require(hits==1,"rain no high coupling secondary propagation");}require(maxRain-minRain>.1f,"rain variable strengths");
+ cortex::Excitation bounded;for(int burst=0;burst<100;++burst){pattern.trigger(1,burst%16,1,2,bounded);require(bounded.pendingCount()<=64,"fixed wave bound under rapid storms");bounded.step(1.f/12,2,8,2);}cortex::PulseClock modeClock;pattern.changeMode(1,bounded,modeClock);pattern.trigger(1,0,1,2,bounded);require(bounded.pendingCount()>0,"storm pending");require(pattern.changeMode(2,bounded,modeClock)&&bounded.pendingCount()==0,"mode change clears pending waves");require(modeClock.step(true,2,0)==-1,"mode resets pulse clock");require(!pattern.changeMode(2,bounded,modeClock),"same mode preserves clock");
+ std::cout<<"PASS pulse modes: seeded storm14-16 unique both hemispheres, bounded stagger/strength, rain isolated at high coupling, mode reset and64-wave bound\n";
+ auto e=std::make_unique<cortex::PhaseEngine>();require(e->phases.size()==65536,"state count");
+ for(int i=0;i<cortex::nodes;++i)e->phases[i]=cortex::tau*(i%32)/32;
+ auto raw=e->project(0),spiral=e->project(1),opposite=e->project(-1);require(raw.local<.0001&&spiral.local>.999&&opposite.local<.0001,"winding sensitivity");
+ e->reset();auto before=e->project(0);cortex::Config config;config.network=1;config.noise=0;config.drift=0;config.coupling=8;
+ auto start=std::chrono::steady_clock::now();for(int i=0;i<900;++i)e->step(config);auto after=e->project(0);require(after.global>.95&&after.global>before.global+.8,"global synchronization");
+ for(int topology=0;topology<3;++topology){config.network=topology;config.noise=2;config.drift=2;for(int n=0;n<50;++n)e->step(config);for(auto p:e->phases)require(std::isfinite(p)&&p>=0&&p<cortex::tau,"finite bounded phase");}
+ e->reset();e->excite(5);auto excited=e->project(0);require(excited.amplitude[5]>.99&&excited.amplitude[4]<.1,"localized excitation");
+ cortex::PulseClock clock,clone;int events=0;std::array<bool,16> visited{};for(int tick=0;tick<400;++tick){int a=clock.step(true,2,.3f),b=clone.step(true,2,.3f);require(a==b,"seeded pulse timing");require(a>=-1&&a<16,"pulse region bounds");if(a>=0){++events;visited[a]=true;}}require(events>=16&&events<=24,"pulse mean rate");for(int i=0;i<100;++i)require(clock.step(false,12,1)==-1,"pulse disabled silence");require(clock.step(true,2,0)==-1,"no catch-up after disable");
+ for(int topology=0;topology<3;++topology){cortex::Excitation cascade;cascade.seed(0,.65f);auto first=cascade.step(.025f,topology,2.4f);require(first[0]>.6f,"seed starts first region");for(int g=1;g<16;++g)require(first[g]==0,"other regions wait");int firedCount=1;bool joined=false;for(int tick=0;tick<400;++tick){auto fired=cascade.step(.025f,topology,2.4f);for(int g=0;g<16;++g)if(fired[g]>0){++firedCount;joined|=g!=0;if(topology==0)require(g<8,"islands hemisphere bounds");if(tick<10)require(false,"propagation delay");}if(tick>200)for(float amount:fired)require(amount==0,"cascade returns quiet");}require(joined&&firedCount<=16,"finite single-visit propagation");}
+ for(int scale=0;scale<3;++scale)for(int voice=0;voice<16;++voice){float ratio=cortex::voiceRatio(voice,0,scale,0),semitones=12*std::log2(ratio);require(std::abs(semitones-std::round(semitones))<.0001,"scale grid at zero detune");float detuned=cortex::voiceRatio(voice,0,scale,100);require(std::abs(1200*std::log2(detuned/ratio))<=100.01,"detune bounds");require(ratio<=8,"scale octave bounds");}require(std::abs(12*std::log2(cortex::voiceRatio(3,1,0,0))-std::round(12*std::log2(cortex::voiceRatio(3,1,0,0))))>.01,"free pitches unquantized");
+ cortex::Envelope heldEnvelope;heldEnvelope.trigger(1,60);for(int i=0;i<96000;++i)heldEnvelope.step(1.f/48000,.38f,.22f,.25f,.4f,true);require(std::abs(heldEnvelope.value-.25f)<.001,"MIDI held sustain");for(int i=0;i<12000;++i)heldEnvelope.step(1.f/48000,.38f,.22f,.25f,.4f,false);require(heldEnvelope.value>.025f&&heldEnvelope.value<.045f,"MIDI release contour");for(int i=0;i<12000;++i)heldEnvelope.step(1.f/48000,.38f,.22f,.25f,.4f,false);require(heldEnvelope.step(1.f/48000,.38f,.22f,.25f,.4f,false)==0,"MIDI release finishes");
+ cortex::Envelope shot;shot.trigger(1,-1);for(int i=0;i<48000;++i)shot.step(1.f/48000,.38f,.22f,.25f,.4f,false);require(shot.step(1.f/48000,.38f,.22f,.25f,.4f,false)==0,"one-shot ADSR finishes");
+ std::vector<float> xyz(65536*3);for(int i=0;i<65536;++i)xyz[i*3]=float(i%4096)/4096; e->phases.fill(0);e->scheduleRegion(0,1,.38f,xyz.data());e->applyPending(0);require(e->phases[0]>1&&e->phases[1]==0&&e->phases[4095]==0,"only actual source kicks at time zero");e->applyPending(.19f);require(e->phases[1024]>1&&e->phases[3500]==0,"phase arrivals spread by distance");e->clearPending();e->applyPending(2);require(e->phases[3500]==0,"pause clears future phase kicks");
+ cortex::Excitation isolated;isolated.seed(0,1);int isolatedCount=0;for(int tick=0;tick<400;++tick)for(float value:isolated.step(.025f,1,0,.1f))if(value>0)++isolatedCount;require(isolatedCount==1,"zero coupling prevents joins");
+ std::cout<<"PASS ADSR hold/release/one-shot, actual-node phase arrivals/cancellation, zero-coupling isolation; pulse seeded timing/region bounds/disable; finite delayed cascades; scale/free/detune; 65536 states; winding +/-1 separation; synchronization "<<before.global<<" -> "<<after.global<<"; all networks finite; localized excitation. 1050 steps ms="<<std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-start).count()<<"\n";
+}

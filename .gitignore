@@ -1,0 +1,7 @@
+native/build/
+native/evidence/*
+!native/evidence/.gitkeep
+.DS_Store
+__pycache__/
+*.pyc
+release/

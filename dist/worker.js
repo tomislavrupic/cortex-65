@@ -1,0 +1,5 @@
+import {CortexEngine} from './engine.mjs';
+const engine=new CortexEngine();let running=false,last=performance.now();
+function publish(ms=0){const phases=engine.phase.slice(),coherence=engine.ringCoherence.slice(),voices=engine.voices.slice(),activation=engine.activation.slice();postMessage({phases,coherence,voices,activation,events:engine.drainEvents(),stats:{...engine.stats,computeMs:ms,running}},[phases.buffer,coherence.buffer,voices.buffer,activation.buffer]);}
+onmessage=e=>{const d=e.data;if(d.type==='geometry'){engine.setGeometry(d.positions);postMessage({type:'geometryReady',nodes:65536});return;}if(d.type==='run'){running=d.value;if(!running){engine.clearActivity();engine.measure();}last=performance.now();publish();}if(d.type==='params'){engine.set(d.value);engine.measure();publish();}if(d.type==='excite'){engine.excite(d.group,d.strength,'manual',engine.time,d.nodeIndex??null);if(!running)engine.clearActivity();engine.measure();publish();}};
+setInterval(()=>{if(!running)return;const now=performance.now(),dt=Math.min(.075,(now-last)/1000);last=now;const start=performance.now();engine.step(dt);publish(performance.now()-start);},1000/30);publish();
