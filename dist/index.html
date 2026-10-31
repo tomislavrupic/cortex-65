@@ -18,13 +18,15 @@
 <meta name="twitter:description" content="65,536 oscillators. Brain Rain, Brainstorm and floating headphone sound.">
 <meta name="twitter:image" content="https://tomislavrupic.github.io/cortex-65/assets/marketing/cortex-65-social-v2.png">
 <meta name="twitter:image:alt" content="CORTEX / 65 — A waste of time. Distressed cream, cyan and acid-green artwork of a blue-haired cyborg wearing an anatomical brain headpiece.">
+<script type="module" src="anatomy-loader.mjs"></script>
 </head>
 <body>
 <main class="instrument">
 <header><div class="identity"><span class="mark">▦</span><div><div class="identity-title"><h1>CORTEX <span>/ 65</span></h1><a class="header-download" href="downloads.html" target="_blank" rel="noopener" aria-label="Download CORTEX 65 for Mac">DOWNLOAD ↓</a></div><p>COLLECTIVE PHASE INSTRUMENT</p></div></div><div class="header-status"><i id="status-light"></i><span id="status">SYSTEM READY</span><span class="version">LOCAL ENGINE · 01</span></div></header>
 <section class="stage">
  <div class="stage-top"><div><span class="eyebrow">ANATOMICAL PHASE FIELD</span><h2>Order from noise.</h2><p>65,536 oscillators. One evolving voice.</p></div><div class="field-label"><span id="mode-label">ISLANDS NETWORK</span><small>2,048 RINGS × 32 NODES</small></div></div>
- <canvas id="brain" aria-label="Anatomical brain surface with 65,536 oscillator points. Drag to rotate; click to start and excite the selected region."></canvas><div class="brain-grid"></div>
+ <canvas id="brain" aria-busy="true" aria-label="Anatomical brain surface with 65,536 oscillator points. Drag to rotate; click to start and excite the selected region."></canvas><div class="brain-grid"></div>
+ <div id="brain-loading" role="progressbar" aria-label="Loading anatomical brain model" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="anatomy-seed" aria-hidden="true"></span><canvas id="brain-preview" aria-hidden="true"></canvas><div class="anatomy-loading-copy"><span id="anatomy-loading-label">CONNECTING THE FIELD · 0%</span><small id="anatomy-loading-detail">0 / 65,536 POINTS</small></div></div>
  <div class="side-coordinate left">R<br><small>09 — 16</small></div><div class="side-coordinate right">L<br><small>01 — 08</small></div>
  <div class="brain-annotation"><span class="cross">+</span> CORTICAL PHASE FIELD <span id="rotation-hint">DRAG TO ROTATE · CLICK TO PLAY</span></div>
  <div class="phase-key"><span>PHASE</span><b></b><span>0</span><span>2π</span></div>
